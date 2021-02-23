@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import {Router, Switch, Link} from 'react-router-dom';
 import axios from 'axios';
 
 const projectID = '0c6642af-f190-4c7c-a408-35dad4592d3b';
@@ -26,6 +27,17 @@ const Modal = () => {
     }
   };
 
+  const handleClicku = (e) => {
+    e.preventDefault();
+    if(!localStorage.getItem('username')){
+      localStorage.setItem('username', 'banderita');
+      window.location.reload();
+    }else{
+      //localStorage.removeItem('username');
+      console.log("I'm logged M8");
+    }
+  }
+
   return (
     <div className="wrapper">
       <div className="form">
@@ -34,11 +46,13 @@ const Modal = () => {
           <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} className="input" placeholder="Username" required />
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="input" placeholder="Password" required />
           <div align="center">
-            <button type="submit" className="button">
+            <button type="submit" className="button" onClick={localStorage.setItem('username', username)}>
               <span>Empieza a chatear</span>
             </button>
           </div>
         </form>
+        {/*TODO next event overrides everithing*/}
+        <div><a href="/signup" onClick={handleClicku}>Registrar Cuenta</a></div>
         <h1>{error}</h1>
       </div>
     </div>
